@@ -1,34 +1,32 @@
 package com.benhurqs.sumup.photos.managers
 
 import com.benhurqs.sumup.commons.data.APICallback
+import com.benhurqs.sumup.photos.clients.local.PhotoLocalDataSource
 import com.benhurqs.sumup.photos.clients.remote.PhotoRemoteDataSource
 import com.benhurqs.sumup.photos.domains.entities.Photo
+import com.benhurqs.sumup.user.clients.local.UserLocalDataSource
+import com.benhurqs.sumup.user.managers.UserDataSource
 import io.reactivex.Observer
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 
 
-class PhotoRepository {
+class PhotoRepository(val remoteDataSource: PhotoDataSource, val localDataSource: PhotoLocalDataSource) {
 
-    private val remoteDataSource: PhotoDataSource
-//    val localDataSource: PhotoDataSource
 
     companion object {
         private var mInstance: PhotoRepository? = null
 
         @Synchronized
-        fun getInstance(): PhotoRepository {
+        fun getInstance(remoteDataSource: PhotoDataSource, localDataSource: PhotoLocalDataSource): PhotoRepository {
             if(mInstance == null){
-                mInstance = PhotoRepository()
+                mInstance = PhotoRepository(remoteDataSource, localDataSource)
             }
             return mInstance!!
         }
     }
 
-    init {
-        remoteDataSource = PhotoRemoteDataSource.getInstance()
-    }
 
     fun getPhotoList(albumID: Int?, callback: APICallback<List<Photo>, String>){
         if(albumID == null){

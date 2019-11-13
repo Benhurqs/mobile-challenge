@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.benhurqs.sumup.commons.data.APICallback
+import com.benhurqs.sumup.injection.Injection
 import com.benhurqs.sumup.splash.domains.entities.User
 import com.benhurqs.sumup.user.clients.local.UserLocalDataSource
 import com.benhurqs.sumup.user.clients.remote.UserRemoteDataSource
@@ -15,8 +16,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        UserRepository.getInstance(UserRemoteDataSource.getInstance(), UserLocalDataSource.getInstance(this))
-            .getUserList(object: APICallback<List<User>, String>{
+
+        Injection.provideUserRepository(this).getUserList(object: APICallback<List<User>, String>{
             override fun onStart() {
                 Log.e("start","comecou")
             }

@@ -1,6 +1,6 @@
 package com.benhurqs.sumup.album.managers
 
-import com.benhurqs.sumup.album.clients.remote.AlbumRemoteDataSource
+import com.benhurqs.sumup.album.clients.local.AlbumLocalDataSource
 import com.benhurqs.sumup.commons.data.APICallback
 import com.benhurqs.sumup.photos.domains.entities.Album
 import io.reactivex.Observer
@@ -8,25 +8,18 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 
-class AlbumRepository {
-
-    private val remoteDataSource: AlbumDataSource
-//    val localDataSource: AlbumDataSource
+class AlbumRepository(val remoteDataSource: AlbumDataSource, val localDataSource: AlbumLocalDataSource) {
 
     companion object {
         private var mInstance: AlbumRepository? = null
 
         @Synchronized
-        fun getInstance(): AlbumRepository {
+        fun getInstance(remoteDataSource: AlbumDataSource, localDataSource: AlbumLocalDataSource): AlbumRepository {
             if(mInstance == null){
-                mInstance = AlbumRepository()
+                mInstance = AlbumRepository(remoteDataSource, localDataSource)
             }
             return mInstance!!
         }
-    }
-
-    init {
-        remoteDataSource = AlbumRemoteDataSource.getInstance()
     }
 
     fun getAlbumList(userID: Int?, callback: APICallback<List<Album>, String>){
