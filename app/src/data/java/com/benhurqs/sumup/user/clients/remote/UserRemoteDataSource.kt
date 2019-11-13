@@ -3,9 +3,9 @@ package com.benhurqs.sumup.user.clients.remote
 import com.benhurqs.sumup.commons.api.SumUpAPIService
 import com.benhurqs.sumup.splash.domains.entities.User
 import com.benhurqs.sumup.user.managers.UserDataSource
+import io.reactivex.Observable
 
-class UserRemoteDataSource {
-//    : UserDataSource{
+class UserRemoteDataSource : UserDataSource{
 
     private val clientAPI: SumUpAPIService
 
@@ -25,5 +25,5 @@ class UserRemoteDataSource {
         clientAPI = SumUpAPIService()
     }
 
-//    override fun getUserList(): Observable<ArrayList<User>> = clientAPI.getUsers()
+    override fun getUserList(): Observable<List<User>> = clientAPI.getUsers()
 }

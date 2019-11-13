@@ -1,51 +1,55 @@
-package com.benhurqs.sumup.user.managers
+package com.benhurqs.sumup.photos.managers
 
-import android.util.Log
 import com.benhurqs.sumup.commons.data.APICallback
-import com.benhurqs.sumup.splash.domains.entities.User
-import com.benhurqs.sumup.user.clients.remote.UserRemoteDataSource
+import com.benhurqs.sumup.photos.clients.remote.PhotoRemoteDataSource
+import com.benhurqs.sumup.photos.domains.entities.Photo
 import io.reactivex.Observer
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 
-class UserRepository {
 
-    private val remoteDataSource: UserDataSource
-//    var localDataSource: UserDataSource
+class PhotoRepository {
+
+    private val remoteDataSource: PhotoDataSource
+//    val localDataSource: PhotoDataSource
 
     companion object {
-        private var mInstance: UserRepository? = null
+        private var mInstance: PhotoRepository? = null
 
         @Synchronized
-        fun getInstance(): UserRepository {
+        fun getInstance(): PhotoRepository {
             if(mInstance == null){
-                mInstance = UserRepository()
+                mInstance = PhotoRepository()
             }
             return mInstance!!
         }
     }
 
     init {
-        remoteDataSource = UserRemoteDataSource.getInstance()
-//        localDataSource = UserLocalDataSource.getInstance()
+        remoteDataSource = PhotoRemoteDataSource.getInstance()
     }
 
-    fun getUserList(callback: APICallback<List<User>, String>){
-        remoteDataSource.getUserList()
+    fun getPhotoList(albumID: Int?, callback: APICallback<List<Photo>, String>){
+        if(albumID == null){
+            callback.onError("")
+            return
+        }
+
+        remoteDataSource.getPhotoList(albumID)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
             .doOnSubscribe {
                 callback.onStart()
             }
-            .subscribe(object : Observer<List<User>> {
+            .subscribe(object : Observer<List<Photo>> {
                 override fun onError(e: Throwable?) {
                     if(e?.message != null){
                         callback.onError(e.message!!)
                     }
                 }
 
-                override fun onNext(value: List<User>?) {
+                override fun onNext(value: List<Photo>?) {
                     if(value.isNullOrEmpty()){
                         callback.onError("")
                     }else{
@@ -61,5 +65,4 @@ class UserRepository {
 
             })
     }
-
 }
