@@ -10,7 +10,7 @@ import retrofit2.http.Query
 interface SumUpAPI{
 
     @GET("users")
-    fun users(): Observable<List<User>>
+    fun users(): Observable<List<User>?>
 
     @GET("albums")
     fun albums(@Query("userId") userID: Int): Observable<List<Album>>

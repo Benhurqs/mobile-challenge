@@ -5,5 +5,5 @@ import io.reactivex.Observable
 
 
 interface UserDataSource {
-    fun getUserList() : Observable<List<User>>
+    fun getUserList() : Observable<List<User>?>
 }

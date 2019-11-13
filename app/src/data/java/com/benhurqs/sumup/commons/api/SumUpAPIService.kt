@@ -48,7 +48,7 @@ class SumUpAPIService  {
         api = retrofit.create(SumUpAPI::class.java)
     }
 
-    fun getUsers(): Observable<List<User>> = api.users()
+    fun getUsers(): Observable<List<User>?> = api.users()
     fun getAlbums(userID: Int): Observable<List<Album>> = api.albums(userID)
     fun getPhotos(albumID: Int): Observable<List<Photo>> = api.photos(albumID)
 

@@ -25,5 +25,5 @@ class UserRemoteDataSource : UserDataSource{
         clientAPI = SumUpAPIService()
     }
 
-    override fun getUserList(): Observable<List<User>> = clientAPI.getUsers()
+    override fun getUserList(): Observable<List<User>?> = clientAPI.getUsers()
 }
