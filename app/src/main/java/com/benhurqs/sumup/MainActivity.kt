@@ -1,13 +1,9 @@
 package com.benhurqs.sumup
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import com.benhurqs.sumup.album.managers.AlbumRepository
+import androidx.appcompat.app.AppCompatActivity
 import com.benhurqs.sumup.commons.data.APICallback
-import com.benhurqs.sumup.photos.domains.entities.Album
-import com.benhurqs.sumup.photos.domains.entities.Photo
-import com.benhurqs.sumup.photos.managers.PhotoRepository
 import com.benhurqs.sumup.splash.domains.entities.User
 import com.benhurqs.sumup.user.clients.local.UserLocalDataSource
 import com.benhurqs.sumup.user.clients.remote.UserRemoteDataSource

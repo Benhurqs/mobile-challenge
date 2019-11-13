@@ -3,7 +3,6 @@ package com.benhurqs.sumup.album.clients.remote
 import com.benhurqs.sumup.album.managers.AlbumDataSource
 import com.benhurqs.sumup.commons.api.SumUpAPIService
 import com.benhurqs.sumup.photos.domains.entities.Album
-import com.benhurqs.sumup.user.clients.remote.UserRemoteDataSource
 import io.reactivex.Observable
 
 class AlbumRemoteDataSource : AlbumDataSource{
@@ -26,5 +25,5 @@ class AlbumRemoteDataSource : AlbumDataSource{
         clientAPI = SumUpAPIService()
     }
 
-    override fun getAlbumList(userID: Int): Observable<List<Album>> = clientAPI.getAlbums(userID)
+    override fun getAlbumList(userID: Int): Observable<List<Album>?> = clientAPI.getAlbums(userID)
 }

@@ -42,7 +42,7 @@ class PhotoRepository {
             .doOnSubscribe {
                 callback.onStart()
             }
-            .subscribe(object : Observer<List<Photo>> {
+            .subscribe(object : Observer<List<Photo>?> {
                 override fun onError(e: Throwable?) {
                     if(e?.message != null){
                         callback.onError(e.message!!)

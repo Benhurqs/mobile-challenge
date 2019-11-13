@@ -7,7 +7,6 @@ import com.benhurqs.sumup.splash.domains.entities.User
 import io.reactivex.Observable
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
-import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
@@ -49,8 +48,8 @@ class SumUpAPIService  {
     }
 
     fun getUsers(): Observable<List<User>?> = api.users()
-    fun getAlbums(userID: Int): Observable<List<Album>> = api.albums(userID)
-    fun getPhotos(albumID: Int): Observable<List<Photo>> = api.photos(albumID)
+    fun getAlbums(userID: Int): Observable<List<Album>?> = api.albums(userID)
+    fun getPhotos(albumID: Int): Observable<List<Photo>?> = api.photos(albumID)
 
 
 }

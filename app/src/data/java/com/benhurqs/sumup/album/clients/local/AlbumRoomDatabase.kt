@@ -1,32 +1,31 @@
-package com.benhurqs.sumup.user.clients.local
+package com.benhurqs.sumup.album.clients.local
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.benhurqs.sumup.splash.domains.entities.User
+import com.benhurqs.sumup.photos.domains.entities.Album
 import java.util.concurrent.Executors
 
+@Database(entities = [Album::class], version = 1, exportSchema = false)
+abstract class AlbumRoomDatabase : RoomDatabase() {
 
-@Database(entities = [User::class], version = 1, exportSchema = false)
-abstract class UserRoomDatabase : RoomDatabase() {
-
-    abstract fun userDao(): UserDao
+    abstract fun albumDao(): AlbumDao
 
     companion object {
 
         @Volatile
-        private var INSTANCE: UserRoomDatabase? = null
+        private var INSTANCE: AlbumRoomDatabase? = null
         private val NUMBER_OF_THREADS = 4
         internal val databaseWriteExecutor = Executors.newFixedThreadPool(NUMBER_OF_THREADS)
 
-        internal fun getDatabase(context: Context): UserRoomDatabase {
+        internal fun getDatabase(context: Context): AlbumRoomDatabase {
             if (INSTANCE == null) {
-                synchronized(UserRoomDatabase::class.java) {
+                synchronized(AlbumRoomDatabase::class.java) {
                     if (INSTANCE == null) {
                         INSTANCE = Room.databaseBuilder(
                             context.applicationContext,
-                            UserRoomDatabase::class.java, "users"
+                            AlbumRoomDatabase::class.java, "album"
                         )
                             .build()
                     }

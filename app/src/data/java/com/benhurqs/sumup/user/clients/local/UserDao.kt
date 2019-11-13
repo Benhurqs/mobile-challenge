@@ -1,8 +1,8 @@
 package com.benhurqs.sumup.user.clients.local
 
-import androidx.room.OnConflictStrategy
 import androidx.room.Dao
 import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.benhurqs.sumup.splash.domains.entities.User
 import io.reactivex.Observable

@@ -13,9 +13,9 @@ interface SumUpAPI{
     fun users(): Observable<List<User>?>
 
     @GET("albums")
-    fun albums(@Query("userId") userID: Int): Observable<List<Album>>
+    fun albums(@Query("userId") userID: Int): Observable<List<Album>?>
 
     @GET("photos")
-    fun photos(@Query("albumID") albumID: Int): Observable<List<Photo>>
+    fun photos(@Query("albumID") albumID: Int): Observable<List<Photo>?>
 
 }

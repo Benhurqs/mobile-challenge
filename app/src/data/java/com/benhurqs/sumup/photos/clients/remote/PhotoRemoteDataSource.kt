@@ -25,5 +25,5 @@ class PhotoRemoteDataSource: PhotoDataSource {
         clientAPI = SumUpAPIService()
     }
 
-    override fun getPhotoList(albumID: Int): Observable<List<Photo>> = clientAPI.getPhotos(albumID)
+    override fun getPhotoList(albumID: Int): Observable<List<Photo>?> = clientAPI.getPhotos(albumID)
 }

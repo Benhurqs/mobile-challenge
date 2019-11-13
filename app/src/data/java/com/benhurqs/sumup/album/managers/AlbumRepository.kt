@@ -41,7 +41,7 @@ class AlbumRepository {
             .doOnSubscribe {
                 callback.onStart()
             }
-            .subscribe(object : Observer<List<Album>> {
+            .subscribe(object : Observer<List<Album>?> {
                 override fun onError(e: Throwable?) {
                     if(e?.message != null){
                         callback.onError(e.message!!)
