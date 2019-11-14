@@ -16,8 +16,10 @@ import com.benhurqs.sumup.commons.presentation.adapter.OnClickItemListener
 import com.benhurqs.sumup.photos.domains.entities.Album
 import com.benhurqs.sumup.photos.domains.entities.Photo
 import com.benhurqs.sumup.photos.presentation.adapters.AlbumsAdapter
+import com.benhurqs.sumup.photos.presentation.ui.contracts.AlbumContract
 import com.benhurqs.sumup.photos.presentation.ui.contracts.MainView
 import com.benhurqs.sumup.photos.presentation.ui.contracts.UserContract
+import com.benhurqs.sumup.photos.presentation.ui.presenter.AlbumPresenter
 import com.benhurqs.sumup.photos.presentation.ui.presenter.UserPresenter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
@@ -25,9 +27,10 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.header.*
 
 
-class MainActivity : AppCompatActivity(), MainView, UserContract.View {
+class MainActivity : AppCompatActivity(), MainView, UserContract.View, AlbumContract.View {
 
     private var userPresenter: UserContract.Presenter? = null
+    private var albumPresenter: AlbumContract.Presenter? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,44 +38,16 @@ class MainActivity : AppCompatActivity(), MainView, UserContract.View {
         setContentView(R.layout.activity_main)
 
         userPresenter = UserPresenter(this, this, Injection.provideUserRepository(this))
+        albumPresenter = AlbumPresenter(this, this, Injection.provideAlbumRepository(this))
 
         user_list_close_btn.setOnClickListener {
             hideUserContent()
         }
-
     }
 
     override fun onStart() {
         super.onStart()
         userPresenter?.callUserAPI()
-    }
-
-    private fun loadAlbums(userId: Int){
-        Injection.provideAlbumRepository(this).getAlbumList(userId, object: APICallback<List<Album>, String>{
-            override fun onStart() {
-                progress.visibility = View.VISIBLE
-            }
-
-            override fun onError(error: String) {
-                progress.visibility = View.GONE
-                Log.e("error","error -> " + error)
-            }
-
-            override fun onFinish() {
-                progress.visibility = View.GONE
-                Log.e("finish","finish")
-            }
-
-            override fun onSuccess(albumList: List<Album>) {
-                album_list.layoutManager = LinearLayoutManager(this@MainActivity, LinearLayoutManager.VERTICAL, false)
-                album_list.adapter = AlbumsAdapter(albumList, object : OnClickItemListener<Photo>{
-                    override fun onClickItem(photo: Photo) {
-                        Log.e("Cliquei", "foto")
-                        user_list_content.visibility = View.VISIBLE
-                    }
-                })
-            }
-        })
     }
 
     override fun showLoading() {
@@ -88,8 +63,6 @@ class MainActivity : AppCompatActivity(), MainView, UserContract.View {
     }
 
     override fun isAdded() = !this.isFinishing
-
-    /**************************** USER CALLBACK ***************************************/
 
     override fun showUserLoading() {
         user_list_progress.visibility = View.VISIBLE
@@ -111,10 +84,8 @@ class MainActivity : AppCompatActivity(), MainView, UserContract.View {
         user_list.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         user_list.adapter = UsersAdapter(userList, object : OnClickItemListener<User>{
             override fun onClickItem(user: User) {
-                Log.e("Cliquei", user.name)
-//                loadAlbums(user.id)
-//                user_list_content.visibility = View.GONE
                 userPresenter?.selectedUser(user)
+                albumPresenter?.callAlbumAPI(user.id)
             }
         })
     }
@@ -132,5 +103,15 @@ class MainActivity : AppCompatActivity(), MainView, UserContract.View {
             user_list_content.visibility = View.VISIBLE
             showUserContent()
         }
+    }
+
+    override fun loadingAlbums(albumList: List<Album>) {
+        album_list.layoutManager = LinearLayoutManager(this@MainActivity, LinearLayoutManager.VERTICAL, false)
+        album_list.adapter = AlbumsAdapter(albumList, object : OnClickItemListener<Photo>{
+            override fun onClickItem(photo: Photo) {
+                Log.e("Cliquei", "foto")
+            }
+        })
+
     }
 }

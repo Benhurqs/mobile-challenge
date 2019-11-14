@@ -20,7 +20,7 @@ class UserPresenter (private val userView: UserContract.View, private val mainVi
 
     override fun onError(error: String) {
         if(mainView.isAdded()) {
-            userView.showError(error)
+            mainView.showError(error)
             userView.hideUserLoading()
             userView.hideUserContent()
         }

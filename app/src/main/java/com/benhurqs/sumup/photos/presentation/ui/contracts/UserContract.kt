@@ -6,7 +6,6 @@ interface UserContract {
     interface View{
         fun showUserLoading()
         fun hideUserLoading()
-        fun showError(error: String)
         fun hideUserContent()
         fun showUserContent()
         fun loadingUsers(userList: List<User>)
