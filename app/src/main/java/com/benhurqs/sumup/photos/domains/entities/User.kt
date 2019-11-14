@@ -1,4 +1,4 @@
-package com.benhurqs.sumup.splash.domains.entities
+package com.benhurqs.sumup.photos.domains.entities
 
 import androidx.annotation.NonNull
 import androidx.room.Entity

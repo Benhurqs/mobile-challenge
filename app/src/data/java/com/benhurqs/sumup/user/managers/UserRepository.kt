@@ -2,7 +2,7 @@ package com.benhurqs.sumup.user.managers
 
 import android.util.Log
 import com.benhurqs.sumup.commons.data.APICallback
-import com.benhurqs.sumup.splash.domains.entities.User
+import com.benhurqs.sumup.photos.domains.entities.User
 import com.benhurqs.sumup.user.clients.local.UserLocalDataSource
 import io.reactivex.Observer
 import io.reactivex.android.schedulers.AndroidSchedulers

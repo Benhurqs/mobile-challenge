@@ -31,15 +31,16 @@ class AlbumsAdapter (private val albumList: List<Album>, private val listener: O
         Injection.providePhotoRepository(view.context).getPhotoList(album.userId, object:
             APICallback<List<Photo>, String> {
             override fun onStart() {
-                Log.e("start","comecou")
+                view.album_progress.visibility = View.VISIBLE
             }
 
             override fun onError(error: String) {
+                view.album_progress.visibility = View.GONE
                 Log.e("error","error -> " + error)
             }
 
             override fun onFinish() {
-                Log.e("finish","finish")
+                view.album_progress.visibility = View.GONE
             }
 
             override fun onSuccess(photoList: List<Photo>) {
