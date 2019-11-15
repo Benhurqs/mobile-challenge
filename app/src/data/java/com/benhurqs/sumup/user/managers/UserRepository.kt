@@ -9,7 +9,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 
-class UserRepository( val remoteDataSource: UserDataSource, val localDataSource: UserLocalDataSource) {
+open class UserRepository( val remoteDataSource: UserDataSource, val localDataSource: UserLocalDataSource) {
 
 
     companion object {

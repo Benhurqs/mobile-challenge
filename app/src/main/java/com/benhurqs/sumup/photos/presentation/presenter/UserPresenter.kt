@@ -6,20 +6,25 @@ import com.benhurqs.sumup.photos.presentation.contracts.MainView
 import com.benhurqs.sumup.photos.presentation.contracts.UserContract
 import com.benhurqs.sumup.user.managers.UserRepository
 
-class UserPresenter (private val userView: UserContract.View, private val mainView: MainView,  private val userRepository: UserRepository): UserContract.Presenter, APICallback<List<User>?>{
+class UserPresenter(
+    private val userView: UserContract.View,
+    private val mainView: MainView,
+    private val userRepository: UserRepository
+) : UserContract.Presenter, APICallback<List<User>?> {
 
     override fun callUserAPI() {
         userRepository.getUserList(this)
     }
 
     override fun onStart() {
-        if(mainView.isAdded()) {
+        if (mainView.isAdded()) {
             userView.showUserLoading()
+            userView.hideEmptyUserView()
         }
     }
 
     override fun onError() {
-        if(mainView.isAdded()) {
+        if (mainView.isAdded()) {
             mainView.showError()
             userView.hideUserLoading()
             userView.hideUserContent()
@@ -27,17 +32,17 @@ class UserPresenter (private val userView: UserContract.View, private val mainVi
     }
 
     override fun onFinish() {
-        if(mainView.isAdded()) {
+        if (mainView.isAdded()) {
             userView.hideUserLoading()
             mainView.hideLoading()
         }
     }
 
     override fun onSuccess(userList: List<User>?) {
-        if(mainView.isAdded()){
-            if(userList.isNullOrEmpty()){
-
-            }else{
+        if (mainView.isAdded()) {
+            if (userList.isNullOrEmpty()) {
+                userView.showEmptyUserView()
+            } else {
                 userView.loadingUsers(userList)
                 userView.showUserContent()
             }
@@ -45,10 +50,15 @@ class UserPresenter (private val userView: UserContract.View, private val mainVi
         }
     }
 
-    override fun selectedUser(user: User) {
-        if(mainView.isAdded()){
-            userView.loadginHeader(user)
-            userView.hideUserContent()
+    override fun selectedUser(user: User?) {
+        if (user == null) {
+            onError()
+        } else {
+            if (mainView.isAdded()) {
+                userView.loadingHeader(user)
+                userView.hideUserContent()
+            }
+
         }
     }
 }

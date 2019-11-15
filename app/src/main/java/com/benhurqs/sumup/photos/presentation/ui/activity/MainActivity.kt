@@ -90,7 +90,7 @@ class MainActivity : AppCompatActivity(), MainView, UserContract.View, AlbumCont
         })
     }
 
-    override fun loadginHeader(userSelected: User) {
+    override fun loadingHeader(userSelected: User) {
         header.visibility = View.VISIBLE
         header_user_name.text = userSelected.name
 
@@ -120,5 +120,13 @@ class MainActivity : AppCompatActivity(), MainView, UserContract.View, AlbumCont
 
     override fun hideEmptyView() {
         //TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun showEmptyUserView() {
+//        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun hideEmptyUserView() {
+//        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 }

@@ -1,6 +1,5 @@
 package com.benhurqs.sumup.photos.presentation.presenter
 
-import com.benhurqs.sumup.photos.domains.entities.Album
 import com.benhurqs.sumup.photos.domains.entities.Photo
 import com.benhurqs.sumup.photos.managers.PhotoRepository
 import com.benhurqs.sumup.photos.presentation.contracts.PhotoContract

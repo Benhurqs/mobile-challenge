@@ -9,12 +9,14 @@ interface UserContract {
         fun hideUserContent()
         fun showUserContent()
         fun loadingUsers(userList: List<User>)
-        fun loadginHeader(user: User)
+        fun loadingHeader(user: User)
+        fun showEmptyUserView()
+        fun hideEmptyUserView()
     }
 
     interface Presenter{
         fun callUserAPI()
-        fun selectedUser(user: User)
+        fun selectedUser(user: User?)
 
     }
 }
