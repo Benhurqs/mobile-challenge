@@ -34,6 +34,8 @@ open class AlbumRepository(val remoteDataSource: AlbumDataSource, val localDataS
             callback.onStart()
             callback.onSuccess(albumList)
             callback.onFinish()
+
+            callRemoteAPI(userID)
         }
     }
 

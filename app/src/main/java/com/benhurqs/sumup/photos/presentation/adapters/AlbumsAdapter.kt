@@ -18,7 +18,7 @@ import com.benhurqs.sumup.photos.presentation.presenter.PhotoPresenter
 import kotlinx.android.synthetic.main.album_content.view.*
 import kotlinx.android.synthetic.main.album_error_content.view.*
 
-class AlbumsAdapter (private val albumList: List<Album>, private val listener: OnClickItemListener<Photo>): RecyclerView.Adapter<DefaultViewHolder>(){
+class AlbumsAdapter (private val albumList: List<Album>): RecyclerView.Adapter<DefaultViewHolder>(){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
         DefaultViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.album_content, parent, false))
@@ -48,7 +48,7 @@ class AlbumsAdapter (private val albumList: List<Album>, private val listener: O
 
             override fun loadPhotos(photoList: List<Photo>) {
                 view.photo_list.layoutManager = LinearLayoutManager(view.context, LinearLayoutManager.HORIZONTAL, false)
-                view.photo_list.adapter = PhotosAdapter(photoList, listener)
+                view.photo_list.adapter = PhotosAdapter(photoList)
             }
 
             override fun hideEmptyView() {

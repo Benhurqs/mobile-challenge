@@ -11,7 +11,7 @@ import com.benhurqs.sumup.photos.domains.entities.Photo
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.photo_list_item.view.*
 
-class PhotosAdapter (private val photoList: List<Photo>, private val listener: OnClickItemListener<Photo>): RecyclerView.Adapter<DefaultViewHolder>(){
+class PhotosAdapter (private val photoList: List<Photo>): RecyclerView.Adapter<DefaultViewHolder>(){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
         DefaultViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.photo_list_item, parent, false))
@@ -27,6 +27,5 @@ class PhotosAdapter (private val photoList: List<Photo>, private val listener: O
             .centerCrop()
             .into(view.photo)
 
-        view.setOnClickListener { listener.onClickItem(photo) }
     }
 }

@@ -33,6 +33,8 @@ open class UserRepository( val remoteDataSource: UserDataSource, val localDataSo
             callback.onStart()
             callback.onSuccess(cachedUserList)
             callback.onFinish()
+
+            callRemoteAPI()
         }
 
     }

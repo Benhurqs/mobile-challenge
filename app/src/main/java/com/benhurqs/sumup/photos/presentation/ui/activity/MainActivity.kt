@@ -53,6 +53,10 @@ class MainActivity : AppCompatActivity(), MainView, UserContract.View, AlbumCont
             userPresenter?.callUserAPI()
         }
 
+        filter.setOnClickListener {
+            userPresenter?.callUserAPI()
+        }
+
     }
 
     override fun onStart() {
@@ -121,19 +125,12 @@ class MainActivity : AppCompatActivity(), MainView, UserContract.View, AlbumCont
             .apply(RequestOptions.circleCropTransform())
             .into(header_user_photo)
 
-        filter.setOnClickListener {
-            user_list_content.visibility = View.VISIBLE
-            showUserContent()
-        }
+
     }
 
     override fun loadingAlbums(albumList: List<Album>) {
         album_list.layoutManager = LinearLayoutManager(this@MainActivity, LinearLayoutManager.VERTICAL, false)
-        album_list.adapter = AlbumsAdapter(albumList, object : OnClickItemListener<Photo>{
-            override fun onClickItem(photo: Photo) {
-                Log.e("Cliquei", "foto")
-            }
-        })
+        album_list.adapter = AlbumsAdapter(albumList)
     }
 
     override fun showEmptyView() {

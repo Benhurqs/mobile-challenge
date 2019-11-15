@@ -41,6 +41,8 @@ open class PhotoRepository(val remoteDataSource: PhotoDataSource, val localDataS
             callback.onStart()
             callback.onSuccess(cachedList)
             callback.onFinish()
+
+            callRemoteAPI(albumID)
         }
 
     }
