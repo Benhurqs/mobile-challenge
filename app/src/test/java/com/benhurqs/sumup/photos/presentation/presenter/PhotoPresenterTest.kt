@@ -36,6 +36,7 @@ class PhotoPresenterTest{
         Mockito.verify(view, Mockito.times(1)).isAdded()
         Mockito.verify(view, Mockito.times(1)).showLoading()
         Mockito.verify(view, Mockito.times(1)).hideEmptyView()
+        Mockito.verify(view, Mockito.times(1)).hideError()
     }
 
     @Test

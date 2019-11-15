@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="album_empty_msg">Nenhuma foto encontrada\n para esse album.</string>
+    <string name="album_error">Error ao carregar fotos.</string>
+    <string name="try_again">Tentar novamente.</string>
+</resources>

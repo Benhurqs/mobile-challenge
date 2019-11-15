@@ -3,7 +3,6 @@ package com.benhurqs.sumup.photos.presentation.ui.activity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.benhurqs.sumup.injection.Injection
 import com.benhurqs.sumup.photos.presentation.adapters.UsersAdapter

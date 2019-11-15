@@ -16,6 +16,7 @@ import com.benhurqs.sumup.photos.domains.entities.Photo
 import com.benhurqs.sumup.photos.presentation.contracts.PhotoContract
 import com.benhurqs.sumup.photos.presentation.presenter.PhotoPresenter
 import kotlinx.android.synthetic.main.album_content.view.*
+import kotlinx.android.synthetic.main.album_error_content.view.*
 
 class AlbumsAdapter (private val albumList: List<Album>, private val listener: OnClickItemListener<Photo>): RecyclerView.Adapter<DefaultViewHolder>(){
 
@@ -38,7 +39,11 @@ class AlbumsAdapter (private val albumList: List<Album>, private val listener: O
             }
 
             override fun showError() {
-                //TODO show error content
+                view.album_error_content.visibility = View.VISIBLE
+            }
+
+            override fun hideError() {
+                view.album_error_content.visibility = View.GONE
             }
 
             override fun loadPhotos(photoList: List<Photo>) {
@@ -47,11 +52,11 @@ class AlbumsAdapter (private val albumList: List<Album>, private val listener: O
             }
 
             override fun hideEmptyView() {
-//                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                view.album_empty_content.visibility = View.GONE
             }
 
             override fun showEmptyView() {
-//                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                view.album_empty_content.visibility = View.VISIBLE
             }
 
             override fun isAdded() = !(view.context as Activity).isFinishing
@@ -60,7 +65,9 @@ class AlbumsAdapter (private val albumList: List<Album>, private val listener: O
         view.album_title.text = album.title
         presenter.callPhotoAPI(album.id)
 
-
+        view.album_error_try_again.setOnClickListener {
+            presenter.callPhotoAPI(album.id)
+        }
 
     }
 }

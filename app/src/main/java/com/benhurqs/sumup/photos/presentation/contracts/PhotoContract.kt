@@ -11,6 +11,7 @@ interface PhotoContract {
         fun isAdded() : Boolean
         fun hideEmptyView()
         fun showEmptyView()
+        fun hideError()
     }
 
     interface Presenter{

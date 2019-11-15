@@ -20,6 +20,7 @@ class PhotoPresenter(private val view: PhotoContract.View, private val repositor
         if(view.isAdded()){
             view.showLoading()
             view.hideEmptyView()
+            view.hideError()
         }
     }
 
