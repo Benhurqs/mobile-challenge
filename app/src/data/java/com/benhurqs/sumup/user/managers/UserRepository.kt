@@ -5,11 +5,16 @@ import com.benhurqs.sumup.photos.domains.entities.User
 import com.benhurqs.sumup.user.clients.local.UserLocalDataSource
 import io.reactivex.Observable
 import io.reactivex.Observer
+import io.reactivex.Scheduler
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 
-open class UserRepository( val remoteDataSource: UserDataSource, val localDataSource: UserLocalDataSource) {
+open class UserRepository(
+    val remoteDataSource: UserDataSource,
+    val localDataSource: UserLocalDataSource,
+    val ioScheduler: Scheduler = Schedulers.io(),
+    val mainScheduler: Scheduler = AndroidSchedulers.mainThread()) {
 
     private var cachedUserList: List<User>? = null
 
@@ -41,8 +46,8 @@ open class UserRepository( val remoteDataSource: UserDataSource, val localDataSo
 
     private fun callRemoteAPI(callback: APICallback<List<User>?>? = null){
         remoteDataSource.getUserList()
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeOn(Schedulers.io())
+            .observeOn(mainScheduler)
+            .subscribeOn(ioScheduler)
             .doOnSubscribe {
                 callback?.onStart()
             }
@@ -70,8 +75,8 @@ open class UserRepository( val remoteDataSource: UserDataSource, val localDataSo
     }
     private fun callLocalDatabase(callback: APICallback<List<User>?>){
         localDataSource.getUserList()
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeOn(Schedulers.io())
+            .observeOn(mainScheduler)
+            .subscribeOn(ioScheduler)
             .doOnSubscribe {
                 callback.onStart()
             }

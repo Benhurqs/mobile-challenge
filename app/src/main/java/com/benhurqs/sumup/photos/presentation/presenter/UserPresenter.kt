@@ -12,7 +12,7 @@ class UserPresenter(
     private val userRepository: UserRepository
 ) : UserContract.Presenter, APICallback<List<User>?> {
 
-    private var hasUser = false
+    var hasUser = false
 
     override fun callUserAPI() {
         userRepository.getUserList(this)

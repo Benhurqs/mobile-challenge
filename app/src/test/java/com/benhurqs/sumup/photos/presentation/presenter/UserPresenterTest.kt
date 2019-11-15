@@ -122,7 +122,7 @@ class UserPresenterTest{
         presenter.onError()
 
         Mockito.verify(mainView, Mockito.times(1)).isAdded()
-        Mockito.verify(mainView, Mockito.times(1)).showError()
+        Mockito.verify(userView, Mockito.times(1)).showUserError()
         Mockito.verify(userView, Mockito.times(1)).hideUserContent()
         Mockito.verify(userView, Mockito.times(1)).hideUserLoading()
     }
@@ -159,7 +159,7 @@ class UserPresenterTest{
 
         Mockito.verify(mainView, Mockito.times(1)).isAdded()
         Mockito.verify(userView, Mockito.never()).loadingHeader(User())
-        Mockito.verify(mainView, Mockito.times(1)).showError()
+        Mockito.verify(userView, Mockito.times(1)).showUserError()
         Mockito.verify(userView, Mockito.times(1)).hideUserContent()
         Mockito.verify(userView, Mockito.times(1)).hideUserLoading()
     }
@@ -178,6 +178,17 @@ class UserPresenterTest{
         Mockito.verify(userView, Mockito.times(1)).hideUserContent()
         Mockito.verify(mainView, Mockito.never()).showError()
         Mockito.verify(userView, Mockito.never()).hideUserLoading()
+    }
+
+    @Test
+    fun `check if show close button when onStart() is called`(){
+        Mockito.`when`(mainView.isAdded()).thenReturn(true)
+        presenter.hasUser = true
+        presenter.onStart()
+
+        Mockito.verify(mainView, Mockito.times(1)).isAdded()
+        Mockito.verify(userView, Mockito.times(1)).showCloseButton()
+        Mockito.verify(userView, Mockito.never()).hideCloseButton()
     }
 
 }

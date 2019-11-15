@@ -8,6 +8,9 @@ import io.reactivex.Observable
 import org.junit.Before
 import org.junit.Test
 import org.mockito.Mockito
+import io.reactivex.schedulers.TestScheduler
+
+
 
 class UserRepositoryTest{
 
@@ -19,7 +22,9 @@ class UserRepositoryTest{
     fun setUp(){
         remoteDataSouce = Mockito.mock(UserRemoteDataSource::class.java)
         localDataSource = Mockito.mock(UserLocalDataSource::class.java)
-        repository = UserRepository(remoteDataSouce, localDataSource)
+
+        val testScheduler = TestScheduler()
+        repository = UserRepository(remoteDataSouce, localDataSource, testScheduler, testScheduler)
     }
 
     @Test
@@ -37,6 +42,12 @@ class UserRepositoryTest{
         Mockito.`when`(remoteDataSouce.getUserList()).thenReturn(
             Observable.just(list)
         )
+
+
+        Mockito.`when`(localDataSource.getUserList()).thenReturn(
+            Observable.just(list)
+        )
+
         repository.getUserList(object : APICallback<List<User>?>{
             override fun onStart() {
 //                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
@@ -56,6 +67,6 @@ class UserRepositoryTest{
         })
 
 
-        Mockito.verify(remoteDataSouce, Mockito.times(1)).getUserList()
+        Mockito.verify(localDataSource, Mockito.times(1)).getUserList()
     }
 }
