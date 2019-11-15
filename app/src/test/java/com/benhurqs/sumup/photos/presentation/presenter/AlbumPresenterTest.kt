@@ -38,6 +38,7 @@ class AlbumPresenterTest{
 
         verify(mainView, times(1)).isAdded()
         verify(mainView, times(1)).showLoading()
+        verify(mainView, times(1)).hideError()
         verify(albumView, times(1)).hideEmptyView()
     }
 

@@ -9,18 +9,28 @@ import com.benhurqs.sumup.photos.presentation.contracts.MainView
 class AlbumPresenter(private val albumView: AlbumContract.View, private val mainView: MainView, private val albumRepository: AlbumRepository): AlbumContract.Presenter,
     APICallback<List<Album>?> {
 
+    private var lastUserId: Int? = null
+
     override fun callAlbumAPI(userID: Int?) {
         if(userID == null){
             onError()
             return
         }
+
+        lastUserId = userID
         albumRepository.getAlbumList(userID, this)
+    }
+
+    override fun retryCallAlbumAPI() {
+        callAlbumAPI(lastUserId)
     }
 
     override fun onStart() {
         if(mainView.isAdded()){
             mainView.showLoading()
+            albumView.hideContent()
             albumView.hideEmptyView()
+            mainView.hideError()
         }
     }
 
@@ -41,6 +51,7 @@ class AlbumPresenter(private val albumView: AlbumContract.View, private val main
             if(albumList.isNullOrEmpty()){
                 albumView.showEmptyView()
             }else{
+                albumView.showContent()
                 albumView.loadingAlbums(albumList)
             }
 

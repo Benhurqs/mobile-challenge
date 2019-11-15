@@ -22,6 +22,7 @@ import com.benhurqs.sumup.photos.presentation.presenter.UserPresenter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.error_content.*
 import kotlinx.android.synthetic.main.header.*
 
 
@@ -41,6 +42,10 @@ class MainActivity : AppCompatActivity(), MainView, UserContract.View, AlbumCont
         user_list_close_btn.setOnClickListener {
             hideUserContent()
         }
+
+        error_try_again.setOnClickListener {
+            albumPresenter?.retryCallAlbumAPI()
+        }
     }
 
     override fun onStart() {
@@ -57,8 +62,11 @@ class MainActivity : AppCompatActivity(), MainView, UserContract.View, AlbumCont
     }
 
     override fun showError() {
-        //TODO
-//        Toast.makeText(this, error, Toast.LENGTH_SHORT).show()
+        error_content.visibility = View.VISIBLE
+    }
+
+    override fun hideError() {
+        error_content.visibility = View.GONE
     }
 
     override fun isAdded() = !this.isFinishing
@@ -77,6 +85,14 @@ class MainActivity : AppCompatActivity(), MainView, UserContract.View, AlbumCont
 
     override fun showUserContent() {
         user_list_content.visibility = View.VISIBLE
+    }
+
+    override fun hideContent() {
+        album_list.visibility = View.GONE
+    }
+
+    override fun showContent() {
+        album_list.visibility = View.VISIBLE
     }
 
     override fun loadingUsers(userList: List<User>) {
@@ -114,11 +130,11 @@ class MainActivity : AppCompatActivity(), MainView, UserContract.View, AlbumCont
     }
 
     override fun showEmptyView() {
-        //TODO
+        empty_content.visibility = View.VISIBLE
     }
 
     override fun hideEmptyView() {
-        //TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        empty_content.visibility = View.GONE
     }
 
     override fun showEmptyUserView() {

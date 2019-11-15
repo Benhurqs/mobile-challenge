@@ -4,5 +4,6 @@ interface MainView{
     fun showLoading()
     fun hideLoading()
     fun showError()
+    fun hideError()
     fun isAdded(): Boolean
 }

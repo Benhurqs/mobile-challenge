@@ -7,9 +7,12 @@ interface AlbumContract {
         fun loadingAlbums(albumList: List<Album>)
         fun showEmptyView()
         fun hideEmptyView()
+        fun hideContent()
+        fun showContent()
     }
 
     interface Presenter{
         fun callAlbumAPI(userID: Int?)
+        fun retryCallAlbumAPI()
     }
 }

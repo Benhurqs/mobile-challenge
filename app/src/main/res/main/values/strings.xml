@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">sumup</string>
+    <string name="album_empty">Nenhum album encontrado!</string>
+    <string name="error_msg">Erro ao carregar albums</string>
+</resources>
