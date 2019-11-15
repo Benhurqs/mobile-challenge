@@ -159,4 +159,12 @@ class MainActivity : AppCompatActivity(), MainView, UserContract.View, AlbumCont
     override fun hideUserError() {
         user_empty_content.visibility = View.GONE
     }
+
+    override fun showCloseButton() {
+        user_list_close_btn.visibility = View.VISIBLE
+    }
+
+    override fun hideCloseButton() {
+        user_list_close_btn.visibility = View.INVISIBLE
+    }
 }

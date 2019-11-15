@@ -14,6 +14,8 @@ interface UserContract {
         fun hideEmptyUserView()
         fun showUserError()
         fun hideUserError()
+        fun showCloseButton()
+        fun hideCloseButton()
     }
 
     interface Presenter{

@@ -12,6 +12,8 @@ class UserPresenter(
     private val userRepository: UserRepository
 ) : UserContract.Presenter, APICallback<List<User>?> {
 
+    private var hasUser = false
+
     override fun callUserAPI() {
         userRepository.getUserList(this)
     }
@@ -21,6 +23,12 @@ class UserPresenter(
             userView.showUserLoading()
             userView.hideEmptyUserView()
             userView.hideUserError()
+
+            if(hasUser){
+                userView.showCloseButton()
+            }else{
+                userView.hideCloseButton()
+            }
         }
     }
 
@@ -53,9 +61,11 @@ class UserPresenter(
 
     override fun selectedUser(user: User?) {
         if (user == null) {
+            hasUser = false
             onError()
         } else {
             if (mainView.isAdded()) {
+                hasUser = true
                 userView.loadingHeader(user)
                 userView.hideUserContent()
             }
