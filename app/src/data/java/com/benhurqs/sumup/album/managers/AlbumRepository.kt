@@ -8,7 +8,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 
-class AlbumRepository(val remoteDataSource: AlbumDataSource, val localDataSource: AlbumLocalDataSource) {
+open class AlbumRepository(val remoteDataSource: AlbumDataSource, val localDataSource: AlbumLocalDataSource) {
 
     companion object {
         private var mInstance: AlbumRepository? = null
@@ -22,12 +22,7 @@ class AlbumRepository(val remoteDataSource: AlbumDataSource, val localDataSource
         }
     }
 
-    fun getAlbumList(userID: Int?, callback: APICallback<List<Album>, String>){
-        if(userID == null){
-            callback.onError("")
-            return
-        }
-
+    fun getAlbumList(userID: Int, callback: APICallback<List<Album>?>){
         remoteDataSource.getAlbumList(userID)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
@@ -36,17 +31,11 @@ class AlbumRepository(val remoteDataSource: AlbumDataSource, val localDataSource
             }
             .subscribe(object : Observer<List<Album>?> {
                 override fun onError(e: Throwable?) {
-                    if(e?.message != null){
-                        callback.onError(e.message!!)
-                    }
+                    callback.onError()
                 }
 
                 override fun onNext(value: List<Album>?) {
-                    if(value.isNullOrEmpty()){
-                        callback.onError("")
-                    }else{
-                        callback.onSuccess(value)
-                    }
+                    callback.onSuccess(value)
                 }
 
                 override fun onComplete() {

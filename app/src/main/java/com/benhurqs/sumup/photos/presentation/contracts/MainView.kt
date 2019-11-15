@@ -1,8 +1,8 @@
-package com.benhurqs.sumup.photos.presentation.ui.contracts
+package com.benhurqs.sumup.photos.presentation.contracts
 
 interface MainView{
     fun showLoading()
     fun hideLoading()
-    fun showError(error: String)
+    fun showError()
     fun isAdded(): Boolean
 }

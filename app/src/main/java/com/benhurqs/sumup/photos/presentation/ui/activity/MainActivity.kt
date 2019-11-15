@@ -5,7 +5,6 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.benhurqs.sumup.commons.data.APICallback
 import com.benhurqs.sumup.injection.Injection
 import com.benhurqs.sumup.photos.presentation.adapters.UsersAdapter
 import com.benhurqs.sumup.photos.domains.entities.User
@@ -16,11 +15,11 @@ import com.benhurqs.sumup.commons.presentation.adapter.OnClickItemListener
 import com.benhurqs.sumup.photos.domains.entities.Album
 import com.benhurqs.sumup.photos.domains.entities.Photo
 import com.benhurqs.sumup.photos.presentation.adapters.AlbumsAdapter
-import com.benhurqs.sumup.photos.presentation.ui.contracts.AlbumContract
-import com.benhurqs.sumup.photos.presentation.ui.contracts.MainView
-import com.benhurqs.sumup.photos.presentation.ui.contracts.UserContract
-import com.benhurqs.sumup.photos.presentation.ui.presenter.AlbumPresenter
-import com.benhurqs.sumup.photos.presentation.ui.presenter.UserPresenter
+import com.benhurqs.sumup.photos.presentation.contracts.AlbumContract
+import com.benhurqs.sumup.photos.presentation.contracts.MainView
+import com.benhurqs.sumup.photos.presentation.contracts.UserContract
+import com.benhurqs.sumup.photos.presentation.presenter.AlbumPresenter
+import com.benhurqs.sumup.photos.presentation.presenter.UserPresenter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import kotlinx.android.synthetic.main.activity_main.*
@@ -58,8 +57,9 @@ class MainActivity : AppCompatActivity(), MainView, UserContract.View, AlbumCont
         progress.visibility = View.GONE
     }
 
-    override fun showError(error: String) {
-        Toast.makeText(this, error, Toast.LENGTH_SHORT).show()
+    override fun showError() {
+        //TODO
+//        Toast.makeText(this, error, Toast.LENGTH_SHORT).show()
     }
 
     override fun isAdded() = !this.isFinishing
@@ -112,6 +112,13 @@ class MainActivity : AppCompatActivity(), MainView, UserContract.View, AlbumCont
                 Log.e("Cliquei", "foto")
             }
         })
+    }
 
+    override fun showEmptyView() {
+        //TODO
+    }
+
+    override fun hideEmptyView() {
+        //TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 }

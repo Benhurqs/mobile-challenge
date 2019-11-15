@@ -28,9 +28,9 @@ class PhotoRepository(val remoteDataSource: PhotoDataSource, val localDataSource
     }
 
 
-    fun getPhotoList(albumID: Int?, callback: APICallback<List<Photo>, String>){
+    fun getPhotoList(albumID: Int?, callback: APICallback<List<Photo>?>){
         if(albumID == null){
-            callback.onError("")
+            callback.onError()
             return
         }
 
@@ -43,16 +43,12 @@ class PhotoRepository(val remoteDataSource: PhotoDataSource, val localDataSource
             .subscribe(object : Observer<List<Photo>?> {
                 override fun onError(e: Throwable?) {
                     if(e?.message != null){
-                        callback.onError(e.message!!)
+                        callback.onError()
                     }
                 }
 
                 override fun onNext(value: List<Photo>?) {
-                    if(value.isNullOrEmpty()){
-                        callback.onError("")
-                    }else{
-                        callback.onSuccess(value)
-                    }
+                    callback.onSuccess(value)
                 }
 
                 override fun onComplete() {

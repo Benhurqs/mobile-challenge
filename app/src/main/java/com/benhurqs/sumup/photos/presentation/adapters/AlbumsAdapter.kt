@@ -13,8 +13,8 @@ import com.benhurqs.sumup.commons.presentation.adapter.OnClickItemListener
 import com.benhurqs.sumup.injection.Injection
 import com.benhurqs.sumup.photos.domains.entities.Album
 import com.benhurqs.sumup.photos.domains.entities.Photo
-import com.benhurqs.sumup.photos.presentation.ui.contracts.PhotoContract
-import com.benhurqs.sumup.photos.presentation.ui.presenter.PhotoPresenter
+import com.benhurqs.sumup.photos.presentation.contracts.PhotoContract
+import com.benhurqs.sumup.photos.presentation.presenter.PhotoPresenter
 import kotlinx.android.synthetic.main.album_content.view.*
 
 class AlbumsAdapter (private val albumList: List<Album>, private val listener: OnClickItemListener<Photo>): RecyclerView.Adapter<DefaultViewHolder>(){
@@ -37,8 +37,7 @@ class AlbumsAdapter (private val albumList: List<Album>, private val listener: O
                 view.album_progress.visibility = View.GONE
             }
 
-            override fun showError(error: String) {
-                Log.e("Error->", error)
+            override fun showError() {
                 //TODO show error content
             }
 

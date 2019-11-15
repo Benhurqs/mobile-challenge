@@ -1,14 +1,12 @@
-package com.benhurqs.sumup.photos.presentation.ui.contracts
+package com.benhurqs.sumup.photos.presentation.contracts
 
-import android.provider.Contacts
-import com.benhurqs.sumup.photos.domains.entities.Album
 import com.benhurqs.sumup.photos.domains.entities.Photo
 
 interface PhotoContract {
     interface View{
         fun showLoading()
         fun hideLoading()
-        fun showError(error: String)
+        fun showError()
         fun loadPhotos(photoList: List<Photo>)
         fun isAdded() : Boolean
     }

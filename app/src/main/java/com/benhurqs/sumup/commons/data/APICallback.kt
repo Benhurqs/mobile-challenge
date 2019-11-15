@@ -1,8 +1,8 @@
 package com.benhurqs.sumup.commons.data
 
-interface APICallback<RESPONSE, ERRROR> {
+interface APICallback<RESPONSE> {
     fun onStart()
-    fun onError(error: ERRROR)
+    fun onError()
     fun onFinish()
     fun onSuccess(response: RESPONSE)
 }

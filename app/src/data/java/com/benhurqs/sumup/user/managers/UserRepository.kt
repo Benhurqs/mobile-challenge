@@ -24,7 +24,7 @@ class UserRepository( val remoteDataSource: UserDataSource, val localDataSource:
         }
     }
 
-    fun getUserList(callback: APICallback<List<User>, String>){
+    fun getUserList(callback: APICallback<List<User>?>){
         remoteDataSource.getUserList()
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
@@ -34,13 +34,13 @@ class UserRepository( val remoteDataSource: UserDataSource, val localDataSource:
             .subscribe(object : Observer<List<User>?> {
                 override fun onError(e: Throwable?) {
                     if(e?.message != null){
-                        callback.onError(e.message!!)
+                        callback.onError()
                     }
                 }
 
                 override fun onNext(list: List<User>?) {
                     if(list.isNullOrEmpty()){
-                        callback.onError("")
+                        callback.onError()
                     }else{
                         callback.onSuccess(list)
                         saveUser(list)

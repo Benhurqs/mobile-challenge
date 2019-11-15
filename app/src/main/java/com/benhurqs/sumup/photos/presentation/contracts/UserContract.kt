@@ -1,4 +1,4 @@
-package com.benhurqs.sumup.photos.presentation.ui.contracts
+package com.benhurqs.sumup.photos.presentation.contracts
 
 import com.benhurqs.sumup.photos.domains.entities.User
 

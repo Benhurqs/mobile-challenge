@@ -1,12 +1,12 @@
-package com.benhurqs.sumup.photos.presentation.ui.presenter
+package com.benhurqs.sumup.photos.presentation.presenter
 
 import com.benhurqs.sumup.commons.data.APICallback
 import com.benhurqs.sumup.photos.domains.entities.User
-import com.benhurqs.sumup.photos.presentation.ui.contracts.MainView
-import com.benhurqs.sumup.photos.presentation.ui.contracts.UserContract
+import com.benhurqs.sumup.photos.presentation.contracts.MainView
+import com.benhurqs.sumup.photos.presentation.contracts.UserContract
 import com.benhurqs.sumup.user.managers.UserRepository
 
-class UserPresenter (private val userView: UserContract.View, private val mainView: MainView,  private val userRepository: UserRepository): UserContract.Presenter, APICallback<List<User>, String>{
+class UserPresenter (private val userView: UserContract.View, private val mainView: MainView,  private val userRepository: UserRepository): UserContract.Presenter, APICallback<List<User>?>{
 
     override fun callUserAPI() {
         userRepository.getUserList(this)
@@ -18,9 +18,9 @@ class UserPresenter (private val userView: UserContract.View, private val mainVi
         }
     }
 
-    override fun onError(error: String) {
+    override fun onError() {
         if(mainView.isAdded()) {
-            mainView.showError(error)
+            mainView.showError()
             userView.hideUserLoading()
             userView.hideUserContent()
         }
@@ -33,10 +33,15 @@ class UserPresenter (private val userView: UserContract.View, private val mainVi
         }
     }
 
-    override fun onSuccess(response: List<User>) {
+    override fun onSuccess(userList: List<User>?) {
         if(mainView.isAdded()){
-            userView.loadingUsers(response)
-            userView.showUserContent()
+            if(userList.isNullOrEmpty()){
+
+            }else{
+                userView.loadingUsers(userList)
+                userView.showUserContent()
+            }
+
         }
     }
 
