@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="user_empty_msg">Infelizmente não conseguimos \nencontrar nenhum usuário</string>
+    <string name="user_error">Infelizmente tivemos um problema \nao carregar os usuários.</string>
+</resources>

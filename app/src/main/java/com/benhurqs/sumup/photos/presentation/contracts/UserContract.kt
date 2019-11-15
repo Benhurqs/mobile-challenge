@@ -12,6 +12,8 @@ interface UserContract {
         fun loadingHeader(user: User)
         fun showEmptyUserView()
         fun hideEmptyUserView()
+        fun showUserError()
+        fun hideUserError()
     }
 
     interface Presenter{

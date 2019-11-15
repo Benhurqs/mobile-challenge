@@ -20,12 +20,13 @@ class UserPresenter(
         if (mainView.isAdded()) {
             userView.showUserLoading()
             userView.hideEmptyUserView()
+            userView.hideUserError()
         }
     }
 
     override fun onError() {
         if (mainView.isAdded()) {
-            mainView.showError()
+            userView.showUserError()
             userView.hideUserLoading()
             userView.hideUserContent()
         }

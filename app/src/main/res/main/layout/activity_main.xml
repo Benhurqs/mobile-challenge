@@ -40,6 +40,26 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <include
+        android:id="@+id/user_empty_content"
+        layout="@layout/user_empty_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/album_list"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <include
+        android:id="@+id/user_error_content"
+        layout="@layout/user_error_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/album_list"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/album_list"
         android:layout_width="match_parent"

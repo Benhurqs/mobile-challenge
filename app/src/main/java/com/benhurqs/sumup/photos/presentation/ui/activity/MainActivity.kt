@@ -24,6 +24,7 @@ import com.bumptech.glide.request.RequestOptions
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.error_content.*
 import kotlinx.android.synthetic.main.header.*
+import kotlinx.android.synthetic.main.user_error_content.*
 
 
 class MainActivity : AppCompatActivity(), MainView, UserContract.View, AlbumContract.View {
@@ -45,6 +46,10 @@ class MainActivity : AppCompatActivity(), MainView, UserContract.View, AlbumCont
 
         error_try_again.setOnClickListener {
             albumPresenter?.retryCallAlbumAPI()
+        }
+
+        user_error_try_again.setOnClickListener {
+            userPresenter?.callUserAPI()
         }
     }
 
@@ -138,10 +143,18 @@ class MainActivity : AppCompatActivity(), MainView, UserContract.View, AlbumCont
     }
 
     override fun showEmptyUserView() {
-//        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        user_empty_content.visibility = View.VISIBLE
     }
 
     override fun hideEmptyUserView() {
-//        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        user_empty_content.visibility = View.GONE
+    }
+
+    override fun showUserError() {
+        user_error_content.visibility = View.VISIBLE
+    }
+
+    override fun hideUserError() {
+        user_empty_content.visibility = View.GONE
     }
 }
