@@ -9,9 +9,11 @@ interface PhotoContract {
         fun showError()
         fun loadPhotos(photoList: List<Photo>)
         fun isAdded() : Boolean
+        fun hideEmptyView()
+        fun showEmptyView()
     }
 
     interface Presenter{
-        fun callPhotoAPI(albumID: Int)
+        fun callPhotoAPI(albumID: Int?)
     }
 }

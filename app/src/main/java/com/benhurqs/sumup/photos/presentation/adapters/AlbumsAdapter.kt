@@ -46,6 +46,14 @@ class AlbumsAdapter (private val albumList: List<Album>, private val listener: O
                 view.photo_list.adapter = PhotosAdapter(photoList, listener)
             }
 
+            override fun hideEmptyView() {
+//                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+
+            override fun showEmptyView() {
+//                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+
             override fun isAdded() = !(view.context as Activity).isFinishing
         }, Injection.providePhotoRepository(view.context))
 

@@ -6,9 +6,6 @@ import com.benhurqs.sumup.photos.presentation.contracts.AlbumContract
 import com.benhurqs.sumup.photos.presentation.contracts.MainView
 import org.junit.Before
 import org.junit.Test
-import org.mockito.ArgumentMatchers
-import org.mockito.Mockito
-import org.*
 import org.mockito.Mockito.*
 
 class AlbumPresenterTest{
@@ -45,7 +42,7 @@ class AlbumPresenterTest{
     }
 
     @Test
-    fun `check if do nothing when onStart() is called and isAdded is null`(){
+    fun `check if do nothing when onStart() is called and isAdded is false`(){
         `when`(mainView.isAdded()).thenReturn(false)
         presenter.onStart()
 
@@ -55,7 +52,7 @@ class AlbumPresenterTest{
     }
 
     @Test
-    fun `check if do nothing when onFinish() is called and isAdded is null`(){
+    fun `check if do nothing when onFinish() is called and isAdded is false`(){
         `when`(mainView.isAdded()).thenReturn(false)
         presenter.onFinish()
 
@@ -73,7 +70,7 @@ class AlbumPresenterTest{
     }
 
     @Test
-    fun `check if do nothing when onSuccess() is called and isAdded is null`(){
+    fun `check if do nothing when onSuccess() is called and isAdded is false`(){
         `when`(mainView.isAdded()).thenReturn(false)
         var albumList = ArrayList<Album>()
 
@@ -101,7 +98,7 @@ class AlbumPresenterTest{
     }
 
     @Test
-    fun `check if shw empty view when onSuccess() is called and list is empty`(){
+    fun `check if show empty view when onSuccess() is called and list is empty`(){
         `when`(mainView.isAdded()).thenReturn(true)
         var albumList = ArrayList<Album>()
 
@@ -110,6 +107,16 @@ class AlbumPresenterTest{
         verify(mainView, times(1)).isAdded()
         verify(albumView, times(1)).showEmptyView()
         verify(albumView, never()).loadingAlbums(albumList)
+    }
+
+    @Test
+    fun `check if show empty view when onSuccess() is called and list is null`(){
+        `when`(mainView.isAdded()).thenReturn(true)
+
+        presenter.onSuccess(null)
+
+        verify(mainView, times(1)).isAdded()
+        verify(albumView, times(1)).showEmptyView()
     }
 
     @Test
@@ -123,7 +130,7 @@ class AlbumPresenterTest{
     }
 
     @Test
-    fun `check if do nothing when onError() is called and isAdded is null`(){
+    fun `check if do nothing when onError() is called and isAdded is false`(){
         `when`(mainView.isAdded()).thenReturn(false)
 
         presenter.onError()

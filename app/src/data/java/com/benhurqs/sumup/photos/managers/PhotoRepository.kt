@@ -12,7 +12,7 @@ import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 
 
-class PhotoRepository(val remoteDataSource: PhotoDataSource, val localDataSource: PhotoLocalDataSource) {
+open class PhotoRepository(val remoteDataSource: PhotoDataSource, val localDataSource: PhotoLocalDataSource) {
 
 
     companion object {

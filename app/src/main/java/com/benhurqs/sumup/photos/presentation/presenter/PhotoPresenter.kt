@@ -7,13 +7,19 @@ import com.benhurqs.sumup.photos.presentation.contracts.PhotoContract
 
 class PhotoPresenter(private val view: PhotoContract.View, private val repository: PhotoRepository): PhotoContract.Presenter,
     APICallback<List<Photo>?> {
-    override fun callPhotoAPI(albumID: Int) {
+    override fun callPhotoAPI(albumID: Int?) {
+        if(albumID == null){
+            onError()
+            return
+        }
+
         repository.getPhotoList(albumID, this)
     }
 
     override fun onStart() {
         if(view.isAdded()){
             view.showLoading()
+            view.hideEmptyView()
         }
     }
 
@@ -32,7 +38,7 @@ class PhotoPresenter(private val view: PhotoContract.View, private val repositor
     override fun onSuccess(photoList: List<Photo>?) {
         if(view.isAdded()){
             if(photoList.isNullOrEmpty()){
-
+                view.showEmptyView()
             }else{
                 view.loadPhotos(photoList)
             }
