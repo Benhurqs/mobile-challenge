@@ -30,6 +30,7 @@
         android:layout_marginTop="8dp"
         android:gravity="center"
         android:maxWidth="80dp"
+        android:fontFamily="sans-serif-light"
         android:maxLines="2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

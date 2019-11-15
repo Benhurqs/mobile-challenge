@@ -19,6 +19,7 @@ import com.benhurqs.sumup.photos.presentation.contracts.MainView
 import com.benhurqs.sumup.photos.presentation.contracts.UserContract
 import com.benhurqs.sumup.photos.presentation.presenter.AlbumPresenter
 import com.benhurqs.sumup.photos.presentation.presenter.UserPresenter
+import com.benhurqs.sumup.user.clients.local.UserLocalDataSource
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import kotlinx.android.synthetic.main.activity_main.*
@@ -51,6 +52,7 @@ class MainActivity : AppCompatActivity(), MainView, UserContract.View, AlbumCont
         user_error_try_again.setOnClickListener {
             userPresenter?.callUserAPI()
         }
+
     }
 
     override fun onStart() {

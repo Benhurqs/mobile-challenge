@@ -5,7 +5,7 @@ import com.benhurqs.sumup.photos.domains.entities.User
 import com.benhurqs.sumup.user.managers.UserDataSource
 import io.reactivex.Observable
 
-class UserLocalDataSource(context: Context) : UserDataSource{
+open class UserLocalDataSource(context: Context) : UserDataSource{
 
     private val userDAO: UserDao
 
@@ -33,6 +33,12 @@ class UserLocalDataSource(context: Context) : UserDataSource{
     fun saveUser(user: User){
         UserRoomDatabase.databaseWriteExecutor.execute {
             userDAO.insert(user)
+        }
+    }
+
+    fun deleteAllUser(){
+        UserRoomDatabase.databaseWriteExecutor.execute {
+            userDAO.deleteAll()
         }
     }
 }

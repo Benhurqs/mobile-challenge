@@ -2,4 +2,5 @@
 <resources>
     <string name="user_empty_msg">Infelizmente não conseguimos \nencontrar nenhum usuário</string>
     <string name="user_error">Infelizmente tivemos um problema \nao carregar os usuários.</string>
+    <string name="choose_user">Escolha um usuário</string>
 </resources>

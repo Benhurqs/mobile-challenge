@@ -10,8 +10,8 @@ import io.reactivex.Observable
 @Dao
 interface AlbumDao {
 
-    @Query("SELECT * from albums ORDER BY id ASC")
-    fun getAlbums(): Observable<List<Album>?>
+    @Query("SELECT * from albums WHERE userId=:id ORDER BY id ASC")
+    fun getAlbumsByUserId(id: Int): Observable<List<Album>?>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insert(album: Album)

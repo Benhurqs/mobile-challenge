@@ -27,7 +27,7 @@ class PhotoLocalDataSource(context: Context): PhotoDataSource {
 
 
     override fun getPhotoList(albumID: Int): Observable<List<Photo>?> {
-        return photoDao.getPhotos()
+        return photoDao.getPhotoByAlbumId(albumID)
     }
 
     fun savePhotos(photo: Photo){

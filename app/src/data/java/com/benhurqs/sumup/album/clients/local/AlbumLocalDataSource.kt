@@ -27,7 +27,7 @@ class AlbumLocalDataSource(context: Context): AlbumDataSource {
 
 
     override fun getAlbumList(userID: Int): Observable<List<Album>?> {
-        return albumDao.getAlbums()
+        return albumDao.getAlbumsByUserId(userID)
     }
 
     fun saveAlbums(album: Album){
