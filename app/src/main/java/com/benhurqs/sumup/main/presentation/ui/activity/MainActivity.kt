@@ -1,4 +1,4 @@
-package com.benhurqs.sumup.photos.presentation.ui.activity
+package com.benhurqs.sumup.main.presentation.ui.activity
 
 import android.os.Bundle
 import android.view.View
@@ -7,15 +7,15 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.benhurqs.sumup.R
 import com.benhurqs.sumup.commons.presentation.adapter.OnClickItemListener
 import com.benhurqs.sumup.injection.Injection
-import com.benhurqs.sumup.photos.domains.entities.Album
-import com.benhurqs.sumup.photos.domains.entities.User
-import com.benhurqs.sumup.photos.presentation.adapters.AlbumsAdapter
-import com.benhurqs.sumup.photos.presentation.adapters.UsersAdapter
-import com.benhurqs.sumup.photos.presentation.contracts.AlbumContract
-import com.benhurqs.sumup.photos.presentation.contracts.MainView
-import com.benhurqs.sumup.photos.presentation.contracts.UserContract
-import com.benhurqs.sumup.photos.presentation.presenter.AlbumPresenter
-import com.benhurqs.sumup.photos.presentation.presenter.UserPresenter
+import com.benhurqs.sumup.main.domains.entities.Album
+import com.benhurqs.sumup.main.domains.entities.User
+import com.benhurqs.sumup.main.presentation.adapters.AlbumsAdapter
+import com.benhurqs.sumup.main.presentation.adapters.UsersAdapter
+import com.benhurqs.sumup.main.presentation.contracts.AlbumContract
+import com.benhurqs.sumup.main.presentation.contracts.MainView
+import com.benhurqs.sumup.main.presentation.contracts.UserContract
+import com.benhurqs.sumup.main.presentation.presenter.AlbumPresenter
+import com.benhurqs.sumup.main.presentation.presenter.UserPresenter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import kotlinx.android.synthetic.main.activity_main.*
@@ -35,8 +35,16 @@ class MainActivity : AppCompatActivity(), MainView, UserContract.View, AlbumCont
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        userPresenter = UserPresenter(this, this, Injection.provideUserRepository(this))
-        albumPresenter = AlbumPresenter(this, this, Injection.provideAlbumRepository(this))
+        userPresenter = UserPresenter(
+            this,
+            this,
+            Injection.provideUserRepository(this)
+        )
+        albumPresenter = AlbumPresenter(
+            this,
+            this,
+            Injection.provideAlbumRepository(this)
+        )
 
         user_list_close_btn.setOnClickListener {
             hideUserContent()
@@ -105,12 +113,14 @@ class MainActivity : AppCompatActivity(), MainView, UserContract.View, AlbumCont
 
     override fun loadingUsers(userList: List<User>) {
         user_list.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-        user_list.adapter = UsersAdapter(userList, object : OnClickItemListener<User>{
-            override fun onClickItem(user: User) {
-                userPresenter?.selectedUser(user)
-                albumPresenter?.callAlbumAPI(user.id)
-            }
-        })
+        user_list.adapter = UsersAdapter(
+            userList,
+            object : OnClickItemListener<User> {
+                override fun onClickItem(user: User) {
+                    userPresenter?.selectedUser(user)
+                    albumPresenter?.callAlbumAPI(user.id)
+                }
+            })
     }
 
     override fun loadingHeader(userSelected: User) {

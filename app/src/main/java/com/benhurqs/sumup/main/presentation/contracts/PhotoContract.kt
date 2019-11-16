@@ -1,6 +1,6 @@
-package com.benhurqs.sumup.photos.presentation.contracts
+package com.benhurqs.sumup.main.presentation.contracts
 
-import com.benhurqs.sumup.photos.domains.entities.Photo
+import com.benhurqs.sumup.main.domains.entities.Photo
 
 interface PhotoContract {
     interface View{

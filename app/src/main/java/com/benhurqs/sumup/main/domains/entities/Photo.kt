@@ -1,18 +1,19 @@
-package com.benhurqs.sumup.photos.domains.entities
+package com.benhurqs.sumup.main.domains.entities
 
 import androidx.annotation.NonNull
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import java.io.Serializable
 
-@Entity(tableName = "users")
-class User : Serializable{
+
+@Entity(tableName = "photos")
+class Photo : Serializable{
 
     @PrimaryKey
     @NonNull
     var id: Int = 0
 
-    var name: String? = null
+    var url: String? = null
 
-    var image: String? = null
+    var albumID: Int = 0
 }

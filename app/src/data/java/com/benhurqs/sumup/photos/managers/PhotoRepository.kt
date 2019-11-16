@@ -2,7 +2,7 @@ package com.benhurqs.sumup.photos.managers
 
 import com.benhurqs.sumup.commons.data.APICallback
 import com.benhurqs.sumup.photos.clients.local.PhotoLocalDataSource
-import com.benhurqs.sumup.photos.domains.entities.Photo
+import com.benhurqs.sumup.main.domains.entities.Photo
 import io.reactivex.Observer
 import io.reactivex.Scheduler
 import io.reactivex.android.schedulers.AndroidSchedulers

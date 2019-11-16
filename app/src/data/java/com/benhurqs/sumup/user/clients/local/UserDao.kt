@@ -4,7 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.benhurqs.sumup.photos.domains.entities.User
+import com.benhurqs.sumup.main.domains.entities.User
 import io.reactivex.Observable
 
 

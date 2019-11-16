@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.benhurqs.sumup.photos.domains.entities.Photo
+import com.benhurqs.sumup.main.domains.entities.Photo
 import java.util.concurrent.Executors
 
 

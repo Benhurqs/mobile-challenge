@@ -1,8 +1,9 @@
 package com.benhurqs.sumup.photos.presentation.presenter
 
-import com.benhurqs.sumup.photos.domains.entities.User
-import com.benhurqs.sumup.photos.presentation.contracts.MainView
-import com.benhurqs.sumup.photos.presentation.contracts.UserContract
+import com.benhurqs.sumup.main.domains.entities.User
+import com.benhurqs.sumup.main.presentation.contracts.MainView
+import com.benhurqs.sumup.main.presentation.contracts.UserContract
+import com.benhurqs.sumup.main.presentation.presenter.UserPresenter
 import com.benhurqs.sumup.user.managers.UserRepository
 import org.junit.Before
 import org.junit.Test
@@ -19,7 +20,11 @@ class UserPresenterTest{
         userView = Mockito.mock(UserContract.View::class.java)
         mainView = Mockito.mock(MainView::class.java)
         repository = Mockito.mock(UserRepository::class.java)
-        presenter = UserPresenter(userView, mainView, repository)
+        presenter = UserPresenter(
+            userView,
+            mainView,
+            repository
+        )
     }
 
     @Test

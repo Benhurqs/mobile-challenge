@@ -1,4 +1,4 @@
-package com.benhurqs.sumup.photos.presentation.contracts
+package com.benhurqs.sumup.main.presentation.contracts
 
 interface MainView{
     fun showLoading()

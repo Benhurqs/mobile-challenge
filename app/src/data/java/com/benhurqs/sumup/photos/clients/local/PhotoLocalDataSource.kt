@@ -1,7 +1,7 @@
 package com.benhurqs.sumup.photos.clients.local
 
 import android.content.Context
-import com.benhurqs.sumup.photos.domains.entities.Photo
+import com.benhurqs.sumup.main.domains.entities.Photo
 import com.benhurqs.sumup.photos.managers.PhotoDataSource
 import io.reactivex.Observable
 

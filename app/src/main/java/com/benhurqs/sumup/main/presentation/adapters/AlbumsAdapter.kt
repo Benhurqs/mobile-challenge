@@ -1,4 +1,4 @@
-package com.benhurqs.sumup.photos.presentation.adapters
+package com.benhurqs.sumup.main.presentation.adapters
 
 import android.app.Activity
 import android.view.LayoutInflater
@@ -9,10 +9,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.benhurqs.sumup.R
 import com.benhurqs.sumup.commons.presentation.adapter.DefaultViewHolder
 import com.benhurqs.sumup.injection.Injection
-import com.benhurqs.sumup.photos.domains.entities.Album
-import com.benhurqs.sumup.photos.domains.entities.Photo
-import com.benhurqs.sumup.photos.presentation.contracts.PhotoContract
-import com.benhurqs.sumup.photos.presentation.presenter.PhotoPresenter
+import com.benhurqs.sumup.main.domains.entities.Album
+import com.benhurqs.sumup.main.domains.entities.Photo
+import com.benhurqs.sumup.main.presentation.contracts.PhotoContract
+import com.benhurqs.sumup.main.presentation.presenter.PhotoPresenter
 import kotlinx.android.synthetic.main.album_content.view.*
 import kotlinx.android.synthetic.main.album_error_content.view.*
 
@@ -27,7 +27,8 @@ class AlbumsAdapter (private val albumList: List<Album>): RecyclerView.Adapter<D
         val view: View = holder.mView
         val album = albumList[position]
 
-        val presenter = PhotoPresenter(object : PhotoContract.View{
+        val presenter = PhotoPresenter(object :
+            PhotoContract.View {
             override fun showLoading() {
                 view.album_progress.visibility = View.VISIBLE
             }
@@ -45,8 +46,10 @@ class AlbumsAdapter (private val albumList: List<Album>): RecyclerView.Adapter<D
             }
 
             override fun loadPhotos(photoList: List<Photo>) {
-                view.photo_list.layoutManager = LinearLayoutManager(view.context, LinearLayoutManager.HORIZONTAL, false)
-                view.photo_list.adapter = PhotosAdapter(photoList)
+                view.photo_list.layoutManager =
+                    LinearLayoutManager(view.context, LinearLayoutManager.HORIZONTAL, false)
+                view.photo_list.adapter =
+                    PhotosAdapter(photoList)
             }
 
             override fun hideEmptyView() {

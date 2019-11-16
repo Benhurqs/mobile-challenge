@@ -1,4 +1,4 @@
-package com.benhurqs.sumup.photos.presentation.adapters
+package com.benhurqs.sumup.main.presentation.adapters
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.benhurqs.sumup.commons.presentation.adapter.DefaultViewHolder
 import com.benhurqs.sumup.commons.presentation.adapter.OnClickItemListener
-import com.benhurqs.sumup.photos.domains.entities.User
+import com.benhurqs.sumup.main.domains.entities.User
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import kotlinx.android.synthetic.main.user_list_item.view.*

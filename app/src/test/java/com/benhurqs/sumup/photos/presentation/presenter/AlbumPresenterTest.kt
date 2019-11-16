@@ -1,9 +1,10 @@
 package com.benhurqs.sumup.photos.presentation.presenter
 
 import com.benhurqs.sumup.album.managers.AlbumRepository
-import com.benhurqs.sumup.photos.domains.entities.Album
-import com.benhurqs.sumup.photos.presentation.contracts.AlbumContract
-import com.benhurqs.sumup.photos.presentation.contracts.MainView
+import com.benhurqs.sumup.main.domains.entities.Album
+import com.benhurqs.sumup.main.presentation.contracts.AlbumContract
+import com.benhurqs.sumup.main.presentation.contracts.MainView
+import com.benhurqs.sumup.main.presentation.presenter.AlbumPresenter
 import org.junit.Before
 import org.junit.Test
 import org.mockito.Mockito.*
@@ -20,7 +21,11 @@ class AlbumPresenterTest{
         albumView = mock(AlbumContract.View::class.java)
         mainView = mock(MainView::class.java)
         repository = mock(AlbumRepository::class.java)
-        presenter = AlbumPresenter(albumView, mainView, repository)
+        presenter = AlbumPresenter(
+            albumView,
+            mainView,
+            repository
+        )
     }
 
     @Test

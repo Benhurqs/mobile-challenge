@@ -1,9 +1,9 @@
-package com.benhurqs.sumup.photos.presentation.presenter
+package com.benhurqs.sumup.main.presentation.presenter
 
 import com.benhurqs.sumup.commons.data.APICallback
-import com.benhurqs.sumup.photos.domains.entities.User
-import com.benhurqs.sumup.photos.presentation.contracts.MainView
-import com.benhurqs.sumup.photos.presentation.contracts.UserContract
+import com.benhurqs.sumup.main.domains.entities.User
+import com.benhurqs.sumup.main.presentation.contracts.MainView
+import com.benhurqs.sumup.main.presentation.contracts.UserContract
 import com.benhurqs.sumup.user.managers.UserRepository
 
 class UserPresenter(

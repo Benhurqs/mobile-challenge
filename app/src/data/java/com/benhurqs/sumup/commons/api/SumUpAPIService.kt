@@ -1,9 +1,9 @@
 package com.benhurqs.sumup.commons.api
 
 import com.benhurqs.sumup.BuildConfig
-import com.benhurqs.sumup.photos.domains.entities.Album
-import com.benhurqs.sumup.photos.domains.entities.Photo
-import com.benhurqs.sumup.photos.domains.entities.User
+import com.benhurqs.sumup.main.domains.entities.Album
+import com.benhurqs.sumup.main.domains.entities.Photo
+import com.benhurqs.sumup.main.domains.entities.User
 import io.reactivex.Observable
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor

@@ -1,10 +1,10 @@
-package com.benhurqs.sumup.photos.presentation.presenter
+package com.benhurqs.sumup.main.presentation.presenter
 
 import com.benhurqs.sumup.album.managers.AlbumRepository
 import com.benhurqs.sumup.commons.data.APICallback
-import com.benhurqs.sumup.photos.domains.entities.Album
-import com.benhurqs.sumup.photos.presentation.contracts.AlbumContract
-import com.benhurqs.sumup.photos.presentation.contracts.MainView
+import com.benhurqs.sumup.main.domains.entities.Album
+import com.benhurqs.sumup.main.presentation.contracts.AlbumContract
+import com.benhurqs.sumup.main.presentation.contracts.MainView
 
 class AlbumPresenter(private val albumView: AlbumContract.View, private val mainView: MainView, private val albumRepository: AlbumRepository): AlbumContract.Presenter,
     APICallback<List<Album>?> {

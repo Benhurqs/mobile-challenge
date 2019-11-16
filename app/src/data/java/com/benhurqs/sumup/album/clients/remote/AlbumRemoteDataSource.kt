@@ -2,7 +2,7 @@ package com.benhurqs.sumup.album.clients.remote
 
 import com.benhurqs.sumup.album.managers.AlbumDataSource
 import com.benhurqs.sumup.commons.api.SumUpAPIService
-import com.benhurqs.sumup.photos.domains.entities.Album
+import com.benhurqs.sumup.main.domains.entities.Album
 import io.reactivex.Observable
 
 open class AlbumRemoteDataSource : AlbumDataSource{

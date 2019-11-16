@@ -1,7 +1,7 @@
 package com.benhurqs.sumup.user.managers
 
 import com.benhurqs.sumup.commons.data.APICallback
-import com.benhurqs.sumup.photos.domains.entities.User
+import com.benhurqs.sumup.main.domains.entities.User
 import com.benhurqs.sumup.user.clients.local.UserLocalDataSource
 import io.reactivex.Observer
 import io.reactivex.Scheduler

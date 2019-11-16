@@ -2,7 +2,7 @@ package com.benhurqs.sumup.album.clients.local
 
 import android.content.Context
 import com.benhurqs.sumup.album.managers.AlbumDataSource
-import com.benhurqs.sumup.photos.domains.entities.Album
+import com.benhurqs.sumup.main.domains.entities.Album
 import io.reactivex.Observable
 
 open class AlbumLocalDataSource(context: Context): AlbumDataSource {
