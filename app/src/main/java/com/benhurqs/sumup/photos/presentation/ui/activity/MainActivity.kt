@@ -1,31 +1,28 @@
 package com.benhurqs.sumup.photos.presentation.ui.activity
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import com.benhurqs.sumup.injection.Injection
-import com.benhurqs.sumup.photos.presentation.adapters.UsersAdapter
-import com.benhurqs.sumup.photos.domains.entities.User
-import kotlinx.android.synthetic.main.user_list_content.*
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.benhurqs.sumup.R
 import com.benhurqs.sumup.commons.presentation.adapter.OnClickItemListener
+import com.benhurqs.sumup.injection.Injection
 import com.benhurqs.sumup.photos.domains.entities.Album
-import com.benhurqs.sumup.photos.domains.entities.Photo
+import com.benhurqs.sumup.photos.domains.entities.User
 import com.benhurqs.sumup.photos.presentation.adapters.AlbumsAdapter
+import com.benhurqs.sumup.photos.presentation.adapters.UsersAdapter
 import com.benhurqs.sumup.photos.presentation.contracts.AlbumContract
 import com.benhurqs.sumup.photos.presentation.contracts.MainView
 import com.benhurqs.sumup.photos.presentation.contracts.UserContract
 import com.benhurqs.sumup.photos.presentation.presenter.AlbumPresenter
 import com.benhurqs.sumup.photos.presentation.presenter.UserPresenter
-import com.benhurqs.sumup.user.clients.local.UserLocalDataSource
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.error_content.*
 import kotlinx.android.synthetic.main.header.*
 import kotlinx.android.synthetic.main.user_error_content.*
+import kotlinx.android.synthetic.main.user_list_content.*
 
 
 class MainActivity : AppCompatActivity(), MainView, UserContract.View, AlbumContract.View {

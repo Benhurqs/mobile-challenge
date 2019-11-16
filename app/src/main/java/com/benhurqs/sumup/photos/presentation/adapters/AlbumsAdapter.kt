@@ -1,7 +1,6 @@
 package com.benhurqs.sumup.photos.presentation.adapters
 
 import android.app.Activity
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,7 +8,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.benhurqs.sumup.R
 import com.benhurqs.sumup.commons.presentation.adapter.DefaultViewHolder
-import com.benhurqs.sumup.commons.presentation.adapter.OnClickItemListener
 import com.benhurqs.sumup.injection.Injection
 import com.benhurqs.sumup.photos.domains.entities.Album
 import com.benhurqs.sumup.photos.domains.entities.Photo

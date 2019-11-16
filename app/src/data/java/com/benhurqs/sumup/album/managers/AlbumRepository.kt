@@ -1,18 +1,21 @@
 package com.benhurqs.sumup.album.managers
 
-import android.util.SparseArray
 import com.benhurqs.sumup.album.clients.local.AlbumLocalDataSource
 import com.benhurqs.sumup.commons.data.APICallback
 import com.benhurqs.sumup.photos.domains.entities.Album
-import io.reactivex.Observable
 import io.reactivex.Observer
+import io.reactivex.Scheduler
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 
-open class AlbumRepository(val remoteDataSource: AlbumDataSource, val localDataSource: AlbumLocalDataSource) {
+open class AlbumRepository(
+    val remoteDataSource: AlbumDataSource,
+    val localDataSource: AlbumLocalDataSource,
+    val ioScheduler: Scheduler = Schedulers.io(),
+    val mainScheduler: Scheduler = AndroidSchedulers.mainThread()) {
 
-    private var cachedAlbumList = SparseArray<List<Album>>()
+    var cachedAlbumList = HashMap<Int,List<Album>>()
 
     companion object {
         private var mInstance: AlbumRepository? = null
@@ -41,8 +44,8 @@ open class AlbumRepository(val remoteDataSource: AlbumDataSource, val localDataS
 
     private fun callRemoteAPI(userID: Int, callback: APICallback<List<Album>?>? = null){
         remoteDataSource.getAlbumList(userID)
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeOn(Schedulers.io())
+            .observeOn(mainScheduler)
+            .subscribeOn(ioScheduler)
             .doOnSubscribe {
                 callback?.onStart()
             }
@@ -71,8 +74,8 @@ open class AlbumRepository(val remoteDataSource: AlbumDataSource, val localDataS
 
     private fun callLocalDatabase(userID: Int, callback: APICallback<List<Album>?>){
        localDataSource.getAlbumList(userID)
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeOn(Schedulers.io())
+            .observeOn(mainScheduler)
+            .subscribeOn(ioScheduler)
             .doOnSubscribe {
                 callback.onStart()
             }
@@ -82,14 +85,7 @@ open class AlbumRepository(val remoteDataSource: AlbumDataSource, val localDataS
                 }
 
                 override fun onNext(list: List<Album>?) {
-                    if(list.isNullOrEmpty()){
-                        callRemoteAPI(userID, callback)
-                    }else{
-                        callback.onSuccess(list)
-                        callback.onFinish()
-
-                        callRemoteAPI(userID)
-                    }
+                    managerLocalResult(userID, list, callback)
                 }
 
                 override fun onComplete() {}
@@ -99,7 +95,18 @@ open class AlbumRepository(val remoteDataSource: AlbumDataSource, val localDataS
             })
     }
 
-    private fun saveAlbums(userId: Int, list: List<Album>){
+    fun managerLocalResult(userID: Int, list: List<Album>?, callback: APICallback<List<Album>?>){
+        if(list.isNullOrEmpty()){
+            callRemoteAPI(userID, callback)
+        }else{
+            callback.onSuccess(list)
+            callback.onFinish()
+
+            callRemoteAPI(userID)
+        }
+    }
+
+    fun saveAlbums(userId: Int, list: List<Album>){
         cachedAlbumList.put(userId, list)
         list.forEach { album ->
             localDataSource.saveAlbums(album)

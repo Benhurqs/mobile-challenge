@@ -1,16 +1,8 @@
 package com.benhurqs.sumup.photos.managers
 
-import android.util.Log
-import android.util.SparseArray
 import com.benhurqs.sumup.commons.data.APICallback
 import com.benhurqs.sumup.photos.clients.local.PhotoLocalDataSource
-import com.benhurqs.sumup.photos.clients.remote.PhotoRemoteDataSource
-import com.benhurqs.sumup.photos.domains.entities.Album
 import com.benhurqs.sumup.photos.domains.entities.Photo
-import com.benhurqs.sumup.photos.domains.entities.User
-import com.benhurqs.sumup.user.clients.local.UserLocalDataSource
-import com.benhurqs.sumup.user.managers.UserDataSource
-import io.reactivex.Observable
 import io.reactivex.Observer
 import io.reactivex.Scheduler
 import io.reactivex.android.schedulers.AndroidSchedulers

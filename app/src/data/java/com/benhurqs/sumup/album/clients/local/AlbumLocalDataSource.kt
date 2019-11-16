@@ -5,7 +5,7 @@ import com.benhurqs.sumup.album.managers.AlbumDataSource
 import com.benhurqs.sumup.photos.domains.entities.Album
 import io.reactivex.Observable
 
-class AlbumLocalDataSource(context: Context): AlbumDataSource {
+open class AlbumLocalDataSource(context: Context): AlbumDataSource {
 
     private val albumDao: AlbumDao
 

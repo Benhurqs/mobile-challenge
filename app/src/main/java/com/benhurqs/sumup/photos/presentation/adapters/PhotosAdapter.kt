@@ -6,7 +6,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.benhurqs.sumup.R
 import com.benhurqs.sumup.commons.presentation.adapter.DefaultViewHolder
-import com.benhurqs.sumup.commons.presentation.adapter.OnClickItemListener
 import com.benhurqs.sumup.photos.domains.entities.Photo
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.photo_list_item.view.*

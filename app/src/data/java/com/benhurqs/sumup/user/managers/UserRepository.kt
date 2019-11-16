@@ -3,7 +3,6 @@ package com.benhurqs.sumup.user.managers
 import com.benhurqs.sumup.commons.data.APICallback
 import com.benhurqs.sumup.photos.domains.entities.User
 import com.benhurqs.sumup.user.clients.local.UserLocalDataSource
-import io.reactivex.Observable
 import io.reactivex.Observer
 import io.reactivex.Scheduler
 import io.reactivex.android.schedulers.AndroidSchedulers

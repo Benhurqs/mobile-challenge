@@ -5,12 +5,12 @@ import com.benhurqs.sumup.photos.domains.entities.User
 import com.benhurqs.sumup.user.clients.local.UserLocalDataSource
 import com.benhurqs.sumup.user.clients.remote.UserRemoteDataSource
 import io.reactivex.Observable
-import org.junit.Before
-import org.junit.Test
-import org.mockito.Mockito
 import io.reactivex.schedulers.TestScheduler
 import org.junit.Assert
+import org.junit.Before
+import org.junit.Test
 import org.mockito.Mock
+import org.mockito.Mockito
 import org.mockito.MockitoAnnotations
 
 
