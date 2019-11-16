@@ -7,25 +7,35 @@ import com.benhurqs.sumup.photos.clients.local.PhotoLocalDataSource
 import com.benhurqs.sumup.photos.clients.remote.PhotoRemoteDataSource
 import com.benhurqs.sumup.photos.domains.entities.Album
 import com.benhurqs.sumup.photos.domains.entities.Photo
+import com.benhurqs.sumup.photos.domains.entities.User
 import com.benhurqs.sumup.user.clients.local.UserLocalDataSource
 import com.benhurqs.sumup.user.managers.UserDataSource
 import io.reactivex.Observable
 import io.reactivex.Observer
+import io.reactivex.Scheduler
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 
 
-open class PhotoRepository(val remoteDataSource: PhotoDataSource, val localDataSource: PhotoLocalDataSource) {
+open class PhotoRepository(
+    val remoteDataSource: PhotoDataSource,
+    val localDataSource: PhotoLocalDataSource,
+    val ioScheduler: Scheduler = Schedulers.io(),
+    val mainScheduler: Scheduler = AndroidSchedulers.mainThread()
+) {
 
-    private var cachedPhotoList = SparseArray<List<Photo>>()
+    var cachedPhotoList = HashMap<Int, List<Photo>>()
 
     companion object {
         private var mInstance: PhotoRepository? = null
 
         @Synchronized
-        fun getInstance(remoteDataSource: PhotoDataSource, localDataSource: PhotoLocalDataSource): PhotoRepository {
-            if(mInstance == null){
+        fun getInstance(
+            remoteDataSource: PhotoDataSource,
+            localDataSource: PhotoLocalDataSource
+        ): PhotoRepository {
+            if (mInstance == null) {
                 mInstance = PhotoRepository(remoteDataSource, localDataSource)
             }
             return mInstance!!
@@ -33,11 +43,11 @@ open class PhotoRepository(val remoteDataSource: PhotoDataSource, val localDataS
     }
 
 
-    fun getPhotoList(albumID: Int, callback: APICallback<List<Photo>?>){
+    fun getPhotoList(albumID: Int, callback: APICallback<List<Photo>?>) {
         var cachedList = cachedPhotoList.get(albumID)
-        if(cachedList.isNullOrEmpty()){
+        if (cachedList.isNullOrEmpty()) {
             callLocalDatabase(albumID, callback)
-        }else{
+        } else {
             callback.onStart()
             callback.onSuccess(cachedList)
             callback.onFinish()
@@ -47,10 +57,10 @@ open class PhotoRepository(val remoteDataSource: PhotoDataSource, val localDataS
 
     }
 
-    private fun callLocalDatabase(albumID: Int, callback: APICallback<List<Photo>?>){
+    private fun callLocalDatabase(albumID: Int, callback: APICallback<List<Photo>?>) {
         localDataSource.getPhotoList(albumID)
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeOn(Schedulers.io())
+            .observeOn(mainScheduler)
+            .subscribeOn(ioScheduler)
             .doOnSubscribe {
                 callback.onStart()
             }
@@ -60,15 +70,7 @@ open class PhotoRepository(val remoteDataSource: PhotoDataSource, val localDataS
                 }
 
                 override fun onNext(list: List<Photo>?) {
-                    if(list.isNullOrEmpty()){
-                        callRemoteAPI(albumID, callback)
-                    }else{
-                        callback.onSuccess(list)
-                        callback.onFinish()
-
-                        //update local data
-                        callRemoteAPI(albumID)
-                    }
+                    managerLocalResult(albumID, list, callback)
                 }
 
                 override fun onComplete() {}
@@ -77,11 +79,23 @@ open class PhotoRepository(val remoteDataSource: PhotoDataSource, val localDataS
             })
     }
 
+    fun managerLocalResult(albumID: Int, list: List<Photo>?, callback: APICallback<List<Photo>?>) {
+        if (list.isNullOrEmpty()) {
+            callRemoteAPI(albumID, callback)
+        } else {
+            callback.onSuccess(list)
+            callback.onFinish()
 
-    private fun callRemoteAPI(albumID: Int, callback: APICallback<List<Photo>?>? = null){
+            //update local data
+            callRemoteAPI(albumID)
+        }
+    }
+
+
+    private fun callRemoteAPI(albumID: Int, callback: APICallback<List<Photo>?>? = null) {
         remoteDataSource.getPhotoList(albumID)
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeOn(Schedulers.io())
+            .observeOn(mainScheduler)
+            .subscribeOn(ioScheduler)
             .doOnSubscribe {
                 callback?.onStart()
             }
@@ -93,7 +107,7 @@ open class PhotoRepository(val remoteDataSource: PhotoDataSource, val localDataS
                 override fun onNext(value: List<Photo>?) {
                     callback?.onSuccess(value)
 
-                    if(!value.isNullOrEmpty()){
+                    if (!value.isNullOrEmpty()) {
                         savePhotos(albumID, value)
                     }
                 }
@@ -107,9 +121,9 @@ open class PhotoRepository(val remoteDataSource: PhotoDataSource, val localDataS
             })
     }
 
-    private fun savePhotos(albumId: Int, list : List<Photo>){
+    fun savePhotos(albumId: Int, list: List<Photo>) {
         cachedPhotoList.put(albumId, list)
-        list.forEach {photo ->
+        list.forEach { photo ->
             localDataSource.savePhotos(photo)
         }
     }

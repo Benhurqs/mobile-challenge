@@ -5,7 +5,7 @@ import com.benhurqs.sumup.photos.domains.entities.Photo
 import com.benhurqs.sumup.photos.managers.PhotoDataSource
 import io.reactivex.Observable
 
-class PhotoRemoteDataSource: PhotoDataSource {
+open class PhotoRemoteDataSource: PhotoDataSource {
 
     private val clientAPI: SumUpAPIService
 

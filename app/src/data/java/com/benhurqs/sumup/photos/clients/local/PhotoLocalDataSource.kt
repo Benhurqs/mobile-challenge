@@ -5,7 +5,7 @@ import com.benhurqs.sumup.photos.domains.entities.Photo
 import com.benhurqs.sumup.photos.managers.PhotoDataSource
 import io.reactivex.Observable
 
-class PhotoLocalDataSource(context: Context): PhotoDataSource {
+open class PhotoLocalDataSource(context: Context): PhotoDataSource {
 
     private val photoDao: PhotoDao
 
