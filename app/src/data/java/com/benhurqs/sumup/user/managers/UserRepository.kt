@@ -16,7 +16,7 @@ open class UserRepository(
     val ioScheduler: Scheduler = Schedulers.io(),
     val mainScheduler: Scheduler = AndroidSchedulers.mainThread()) {
 
-    private var cachedUserList: List<User>? = null
+    var cachedUserList: List<User>? = null
 
     companion object {
         private var mInstance: UserRepository? = null
@@ -31,7 +31,6 @@ open class UserRepository(
     }
 
     fun getUserList(callback: APICallback<List<User>?>){
-
         if(cachedUserList.isNullOrEmpty()){
             callLocalDatabase(callback)
         }else{
@@ -86,15 +85,7 @@ open class UserRepository(
                 }
 
                 override fun onNext(list: List<User>?) {
-                    if(list.isNullOrEmpty()){
-                        callRemoteAPI(callback)
-                    }else{
-                        callback.onSuccess(list)
-                        callback.onFinish()
-
-                        //update local database
-                        callRemoteAPI(null)
-                    }
+                    managerLocalResult(list, callback)
 
                 }
 
@@ -103,7 +94,18 @@ open class UserRepository(
                 override fun onSubscribe(d: Disposable?) {}
 
             })
+    }
 
+    fun managerLocalResult(list: List<User>?, callback: APICallback<List<User>?>){
+        if(list.isNullOrEmpty()){
+            callRemoteAPI(callback)
+        }else{
+            callback.onSuccess(list)
+            callback.onFinish()
+
+            //update local database
+            callRemoteAPI(null)
+        }
     }
 
     fun saveUser(list : List<User>){
